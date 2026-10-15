@@ -1,0 +1,17 @@
+INSERT OR IGNORE INTO users VALUES ('u1','Alex Morgan','employee','alex@example.test'),('u2','Jordan Lee','manager','jordan@example.test'),('u3','Sam Rivera','accountant','sam@example.test');
+INSERT OR IGNORE INTO jobs VALUES ('j1','JOB-2401','Riverside retrofit'),('j2','JOB-2408','Downtown studio'),('j3','OPS','Internal operations');
+INSERT OR IGNORE INTO gl_accounts VALUES ('gl1','6100','Travel & mileage'),('gl2','6200','Meals'),('gl3','6300','Project supplies'),('gl4','6400','Lodging');
+INSERT OR IGNORE INTO categories VALUES ('travel','Mileage','gl1'),('meals','Meals','gl2'),('supplies','Supplies','gl3'),('lodging','Lodging','gl4');
+INSERT OR IGNORE INTO policies(id,name,category_id,effective_from,effective_to,receipt_threshold_cents,limit_cents,mileage_rate_cents) VALUES ('p1','Receipt required at $10',NULL,'2025-01-01',NULL,1000,NULL,NULL),('p2','Meals limit per expense','meals','2025-01-01',NULL,1000,7500,NULL),('p3','2026 business mileage','travel','2026-01-01','2026-06-30',1000,NULL,72.5),('p4','2025 business mileage','travel','2025-01-01','2025-12-31',1000,NULL,70);
+INSERT OR IGNORE INTO card_transactions VALUES ('ct1','u1','Field Supply Co.','2026-10-12',12840,'USD','4242'),('ct2','u1','Union Coffee','2026-10-13',2480,'USD','4242'),('ct3','u1','Harbor Hotel','2026-10-10',18900,'USD','4242');
+INSERT OR IGNORE INTO receipts VALUES ('r1','u1','sample-supplies.pdf','application/pdf',1),('r2','u1','sample-hotel.pdf','application/pdf',1);
+INSERT OR IGNORE INTO reports(id,user_id,name) VALUES ('rep1','u1','October field work');
+INSERT OR IGNORE INTO expenses(id,user_id,job_id,category_id,merchant,description,date,amount_cents,status,receipt_id,card_transaction_id,report_id) VALUES ('e1','u1','j1','supplies','Field Supply Co.','Fasteners and site materials','2026-10-12',12840,'submitted','r1','ct1','rep1'),('e2','u1','j2','meals','Union Coffee','Team site visit','2026-10-13',2480,'draft',NULL,NULL,'rep1'),('e3','u1','j1','lodging','Harbor Hotel','Overnight site inspection','2026-10-10',18900,'approved','r2','ct3','rep1');
+
+UPDATE expenses SET payment_source='company_card' WHERE card_transaction_id IS NOT NULL;
+
+INSERT OR IGNORE INTO gl_accounts VALUES ('gl5','6110','Flights'),('gl6','6140','Per diem'),('gl7','6150','Fuel'),('gl8','6160','Parking and tolls'),('gl9','6290','Other');
+INSERT OR IGNORE INTO categories VALUES ('flights','Flights','gl5'),('per_diem','Per diem','gl6'),('fuel','Fuel','gl7'),('parking','Parking & tolls','gl8'),('other','Other','gl9');
+INSERT OR IGNORE INTO policies(id,name,category_id,effective_from,effective_to,receipt_threshold_cents,limit_cents,mileage_rate_cents,allowance_cents) VALUES ('p5','2026 midyear business mileage','travel','2026-07-01','2026-12-31',1000,NULL,76,NULL),('p6','Flight cap','flights','2025-01-01',NULL,1000,65000,NULL,NULL),('p7','Demo daily allowance','per_diem','2025-01-01',NULL,1000,8000,NULL,8000),('p8','Lodging policy (no cap)','lodging','2025-01-01',NULL,1000,NULL,NULL,NULL),('p9','Supplies policy (no cap)','supplies','2025-01-01',NULL,1000,NULL,NULL,NULL),('p10','Fuel policy (no cap)','fuel','2025-01-01',NULL,1000,NULL,NULL,NULL),('p11','Parking policy (no cap)','parking','2025-01-01',NULL,1000,NULL,NULL,NULL),('p12','Other policy (no cap)','other','2025-01-01',NULL,1000,NULL,NULL,NULL);
+
+UPDATE expenses SET approved_reimbursement_cents=0 WHERE status='approved' AND payment_source='company_card';

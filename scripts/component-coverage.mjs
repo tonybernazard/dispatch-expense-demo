@@ -1,0 +1,11 @@
+import fs from 'node:fs';
+const s=fs.readFileSync(new URL('../src/main.jsx',import.meta.url),'utf8');
+const imported=new Set([...s.matchAll(/import\s*\{([^}]+)\}\s*from\s*'@mui\/material'/g)].flatMap(m=>m[1].split(',').map(x=>x.trim())));
+for(const m of s.matchAll(/import\s+(\w+)\s+from\s+'@mui\/icons-material/g))imported.add(m[1]);
+const names=[...s.matchAll(/<([A-Za-z][A-Za-z0-9]*)[\s/>]/g)].map(m=>m[1]);
+const count=names.filter(n=>imported.has(n)).length;
+const native=names.filter(n=>/^[a-z]/.test(n));
+const custom=names.filter(n=>!imported.has(n)&&!/^[a-z]/.test(n));
+const denominator=count+native.length;
+console.log(JSON.stringify({method:'JSX element occurrences in main.jsx; MUI components and MUI icons / (MUI + native). Custom compositional wrappers excluded; they render MUI.',mui:count,native:native.length,nativeElements:native,customWrappers:custom,coveragePercent:Number((count/denominator*100).toFixed(2)),targetPercent:95},null,2));
+if(count/denominator<.95)process.exit(1);

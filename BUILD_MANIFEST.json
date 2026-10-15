@@ -1,0 +1,47 @@
+{
+  "project": "Dispatch field expense demo",
+  "testCommand": "npm test",
+  "muiCoverage": {
+    "method": "JSX element occurrences in main.jsx; MUI components and MUI icons / (MUI + native). Custom compositional wrappers excluded; they render MUI.",
+    "mui": 396,
+    "native": 2,
+    "nativeElements": [
+      "input",
+      "input"
+    ],
+    "customWrappers": [
+      "Metrics",
+      "ExpenseTable",
+      "ExpenseTable",
+      "ExpenseTable",
+      "ExpenseTable",
+      "ExpenseTable",
+      "PolicyPanel",
+      "App"
+    ],
+    "coveragePercent": 99.5,
+    "targetPercent": 95
+  },
+  "staticBuild": [
+    {
+      "path": "dist/index.html",
+      "bytes": 480,
+      "sha256": "b5a64f5be1cc163a8b756f42eb6db7c0e86358e311ef8447afd8f91fa68324fa"
+    },
+    {
+      "path": "dist/assets/index-CDsM7Lvy.js",
+      "bytes": 594862,
+      "sha256": "053e73a29e3c9a026baa729df27d53df9ea98ad25cf0b68075cb0068187d237b"
+    }
+  ],
+  "sqlMode": "VITE_API_BASE_URL=http://127.0.0.1:3001 npm run dev; npm run dev:api",
+  "verification": [
+    "Domain and SQL/API automated tests",
+    "HTTP frontend adapter creates/edits/submits/approves/exports and reopens SQLite",
+    "Initial React server render smoke test",
+    "Production Vite build"
+  ],
+  "pending": [
+    "Public-browser visual/interaction QA after publisher deployment"
+  ]
+}

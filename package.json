@@ -1,0 +1,25 @@
+{
+  "name": "dispatch-expenses-demo",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 0.0.0.0",
+    "build": "vite build",
+    "test": "node --test src/*.test.js server/*.test.mjs",
+    "dev:api": "node server/index.mjs",
+    "test:api": "node --test server/*.test.mjs",
+    "test:coverage": "node scripts/component-coverage.mjs"
+  },
+  "dependencies": {
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "@mui/material": "^7.1.0",
+    "@mui/icons-material": "^7.1.0",
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0"
+  },
+  "devDependencies": {
+    "vite": "^6.3.0"
+  }
+}

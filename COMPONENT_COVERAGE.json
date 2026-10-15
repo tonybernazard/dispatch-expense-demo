@@ -1,0 +1,21 @@
+{
+  "method": "JSX element occurrences in main.jsx; MUI components and MUI icons / (MUI + native). Custom compositional wrappers excluded; they render MUI.",
+  "mui": 396,
+  "native": 2,
+  "nativeElements": [
+    "input",
+    "input"
+  ],
+  "customWrappers": [
+    "Metrics",
+    "ExpenseTable",
+    "ExpenseTable",
+    "ExpenseTable",
+    "ExpenseTable",
+    "ExpenseTable",
+    "PolicyPanel",
+    "App"
+  ],
+  "coveragePercent": 99.5,
+  "targetPercent": 95
+}
